@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CMMC 2.0 Readiness Assessment | XyberIQ</title>
+  <meta name="color-scheme" content="dark light">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="head">
+      <div class="brand">
+        <div class="mark" aria-hidden="true"></div>
+        <h1>CMMC 2.0 Readiness Assessment</h1>
+      </div>
+      <p class="lead">Answer 12 quick items mapped to NIST 800-171 (Level 2 focus). Get an instant score, a **proxy SPRS**, and a branded gap report.</p>
+    </header>
+
+    <!-- Company & contact -->
+    <section class="card">
+      <h2>Organization</h2>
+      <div class="grid">
+        <label>Company Name
+          <input id="org" required placeholder="Acme Defense Subcontracting">
+        </label>
+        <label>Contact Email (optional)
+          <input id="email" type="email" placeholder="ops@acme-defense.com">
+        </label>
+        <label>Target Level
+          <select id="level">
+            <option value="2">Level 2 (NIST 800-171)</option>
+            <option value="1">Level 1 (Foundational)</option>
+          </select>
+        </label>
+      </div>
+    </section>
+
+    <!-- Quiz -->
+    <form id="quiz" class="card">
+      <h2>Readiness Check (12 items)</h2>
+      <p class="hint">Choose the option that best reflects your current state. Scoring: Strong (5) • Partial (3) • Not in place (1).</p>
+
+      <!-- 12 key practices across families -->
+      <div class="q">
+        <label>1) AC 3.1.1 — Limit system access to authorized users and processes.</label>
+        <select required><option value="">Select…</option><option value="5">Strong: RBAC enforced</option><option value="3">Partial: informal roles</option><option value="1">Not in place</option></select>
+      </div>
+      <div class="q">
+        <label>2) AC 3.1.7 — Prevent non-privileged users from performing privileged actions.</label>
+        <select required><option value="">Select…</option><option value="5">Strong: admin rights controlled</option><option value="3">Partial: some local admin</option><option value="1">Not in place</option></select>
+      </div>
+      <div class="q">
+        <label>3) IA 3.5.3 — Multi-factor authentication (remote/admin access).</label>
+        <select required><option value="">Select…</option><option value="5">Strong: MFA everywhere required</option><option value="3">Partial: remote only</option><option value="1">Not in place</option></select>
+      </div>
+      <div class="q">
+        <label>4) IA 3.5.7 — Password policy aligned with NIST 800-63B (length, reuse, breach blocklist).</label>
+        <select required><option value="">Select…</option><option value="5">Strong: compliant</option><option value="3">Partial: legacy complexity rules</option><option value="1">Not in place</option></select>
+      </div>
+      <div class="q">
+        <label>5) CM 3.4.1 — Baseline configuration for systems and devices (CIS, STIG, etc.).</label>
+        <select required><option value="">Select…</option><option value="5">Strong: hardened baselines, MDM</option><option value="3">Partial: ad-hoc baselines</option><option value="1">Not in place</option></select>
+      </div>
+      <div class="q">
+        <label>6) CM 3.4.6 — Least functionality (disable unnecessary services & protocols).</label>
+        <select required><option value="">Select…</option><option value="5">Strong: policy + validation</option><option value="3">Partial: best-effort</option><option value="1">Not in place</option></select>
+      </div>
+      <div class="q">
+        <label>7) AU 3.3.1 — Create, protect, and retain audit logs for CUI systems.</label>
+        <select required><option value="">Select…</option><option value="5">Strong: 12–18 mo retention + SIEM</option><option value="3">Partial: short retention</option><option value="1">Not in place</option></select>
+      </div>
+      <div class="q">
+        <label>8) AU 3.3.5 — Correlate and review logs; alert on anomalies.</label>
+        <select required><option value="">Select…</option><option value="5">Strong: weekly review & alerts</option><option value="3">Partial: ad-hoc review</option><option value="1">Not in place</option></select>
+      </div>
+      <div class="q">
+        <label>9) IR 3.6.1 — Incident Response plan, roles, and communications.</label>
+        <select required><option value="">Select…</option><option value="5">Strong: plan + contact tree</option><option value="3">Partial: draft plan</option><option value="1">Not in place</option></select>
+      </div>
+      <div class="q">
+        <label>10) IR 3.6.3 — IR testing (e.g., tabletop exercise) with after-action items.</label>
+        <select required><option value="">Select…</option><option value="5">Strong: annual tabletop</option><option value="3">Partial: informal drills</option><option value="1">Not in place</option></select>
+      </div>
+      <div class="q">
+        <label>11) RM 3.12.2 — Security assessments at planned intervals; track results.</label>
+        <select required><option value="">Select…</option><option value="5">Strong: quarterly checks</option><option value="3">Partial: annual only</option><option value="1">Not in place</option></select>
+      </div>
+      <div class="q">
+        <label>12) CA 3.12.1 — Periodic control assessments & governance (SSP/POA&M maintained).</label>
+        <select required><option value="">Select…</option><option value="5">Strong: current SSP + POA&M</option><option value="3">Partial: outdated docs</option><option value="1">Not in place</option></select>
+      </div>
+
+      <div class="actions">
+        <button type="submit">Get Score & View Report →</button>
+        <p class="fine">Note: **SPRS shown is an approximation** scaled from your readiness score; official SPRS uses weighted deductions per practice.</p>
+      </div>
+    </form>
+
+    <footer class="foot">© <span id="y"></span> XyberIQ • CMMC 2.0 Readiness</footer>
+  </div>
+
+  <script src="script.js"></script>
+  <script>document.getElementById('y').textContent=new Date().getFullYear();</script>
+</body>
+</html>
