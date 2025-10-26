@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>XyberIQ • CMMC 2.0 Readiness Report</title>
+<meta name="color-scheme" content="dark light">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+/* === XyberIQ Report Theme (inlined, same as HIPAA) ======================= */
+:root{
+  --electric:#0072FF; --aqua:#00E0FF; --success:#1dd1a1; --warn:#ffcc00; --danger:#ff6b6b; --radius:14px;
+  --bg:#0A0F1E; --panel:#0F162D; --panel-2:#101838; --text:#E8EEFF; --muted:#A0ACD2; --line:#1B2342; --chip:#0c1228; --shadow:0 28px 48px rgba(2,8,28,.45);
+}
+@media (prefers-color-scheme: light){
+  :root{ --bg:#f7faff; --panel:#ffffff; --panel-2:#f3f6ff; --text:#0b1221; --muted:#47507a; --line:#dfe5ff; --chip:#eef3ff; --shadow:0 14px 34px rgba(4,22,65,.10) }
+}
+:root[data-theme="dark"]{ --bg:#0A0F1E; --panel:#0F162D; --panel-2:#101838; --text:#E8EEFF; --muted:#A0ACD2; --line:#1B2342; --chip:#0c1228; --shadow:0 28px 48px rgba(2,8,28,.45) }
+:root[data-theme="light"]{ --bg:#f7faff; --panel:#ffffff; --panel-2:#f3f6ff; --text:#0b1221; --muted:#47507a; --line:#dfe5ff; --chip:#eef3ff; --shadow:0 14px 34px rgba(4,22,65,.10) }
+
+html{color-scheme: dark light}
+body{
+  margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  background: radial-gradient(1200px 600px at 10% -10%, #13204a 0%, var(--bg) 45%), var(--bg); color:var(--text);
+}
+.container{max-width:960px;margin:0 auto;padding:28px}
+
+/* Header */
+.report-head{
+  display:flex;justify-content:space-between;align-items:center;gap:16px;
+  background:linear-gradient(180deg,var(--panel),var(--panel-2));
+  border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow)
+}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-mark{width:40px;height:40px;border-radius:12px;background:conic-gradient(from 180deg,var(--electric),var(--aqua),var(--electric));box-shadow:0 8px 22px rgba(0,114,255,.35)}
+.brand-title{font-weight:800;font-size:18px;letter-spacing:.2px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--chip);border:1px solid var(--line);color:var(--muted);padding:8px 12px;border-radius:999px;font-weight:700;font-size:12px}
+.badge .dot{width:8px;height:8px;border-radius:999px;background:var(--aqua);box-shadow:0 0 0 3px rgba(0,224,255,.15)}
+.head-actions{display:flex;gap:8px;align-items:center}
+.btn{all:unset;cursor:pointer;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:var(--chip);color:var(--muted);font-weight:800}
+.btn:hover{filter:brightness(1.05)}
+
+/* Sections / Cards */
+.section{margin-top:18px}
+.card{background:linear-gradient(180deg,var(--panel),var(--panel-2));border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow)}
+.card h2{margin:0 0 10px;font:800 18px/1.2 Inter}
+.card p{margin:0;color:var(--muted)}
+
+/* Two-col layout */
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:900px){.cols{grid-template-columns:1fr}}
+
+/* KPI grid */
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.kpi{background:var(--chip);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.kpi .label{font-size:12px;color:var(--muted)}
+.kpi .value{font-weight:900;font-size:20px}
+
+/* Progress bars */
+.progress{height:12px;border-radius:999px;background:#0b1430;border:1px solid var(--line);overflow:hidden}
+.progress>span{display:block;height:100%;background:linear-gradient(90deg,var(--electric),var(--aqua))}
+
+/* Table */
+.table{width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;border:1px solid var(--line);border-radius:12px}
+.table th,.table td{padding:12px 14px;text-align:left;vertical-align:top}
+.table thead th{background:linear-gradient(180deg,var(--panel-2),var(--panel));color:var(--muted);font-weight:800;border-bottom:1px solid var(--line)}
+.table tbody tr+tr td{border-top:1px solid var(--line)}
+.sev-high{color:#ff7b7b;font-weight:800}
+.sev-med{color:#ffd166;font-weight:800}
+.sev-low{color:#7dffcf;font-weight:800}
+
+/* Callouts & list */
+.callout{border-left:4px solid var(--electric);background:rgba(0,114,255,.06);border-radius:10px;padding:12px 14px;color:var(--muted)}
+ul.tight{margin:8px 0 0 18px;padding:0}
+ul.tight li{margin:6px 0}
+
+/* Footer */
+.footer{margin:22px 0 8px;color:var(--muted);text-align:center;font-size:12px}
+
+/* Print */
+@media print{
+  :root{color-scheme:light}
+  body{background:#fff !important;color:#111 !important}
+  .report-head,.card{box-shadow:none;background:#fff;border:1px solid #d9e2ff}
+  .badge{background:#eef3ff;border-color:#d9e2ff;color:#223}
+  .kpi{background:#f5f8ff;border-color:#d9e2ff}
+  .progress{background:#eee;border-color:#ddd}
+  .table thead th{background:#f3f6ff;color:#223;border-color:#d9e2ff}
+  .callout{background:#f5fbff;border-left-color:#0072FF}
+  .btn,.head-actions{display:none !important}
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <!-- HEADER -->
+    <header class="report-head">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <div class="brand-title">XyberIQ • CMMC 2.0 Readiness Report</div>
+      </div>
+      <div class="head-actions">
+        <span class="badge"><span class="dot"></span> Client Copy</span>
+        <button class="btn" onclick="xyberTheme.toggle()">Theme</button>
+        <button class="btn" onclick="window.print()">Print / PDF</button>
+      </div>
+    </header>
+
+    <!-- CLIENT META + SCORE -->
+    <div class="section cols">
+      <div class="card">
+        <h2>Organization</h2>
+        <p><strong id="orgName">Acme Defense Subcontracting</strong></p>
+        <p>Assessment Date: <span id="assessDate"></span></p>
+        <p>Target Level: <strong id="targetLevel">Level 2 (NIST 800-171)</strong></p>
+      </div>
+      <div class="card">
+        <h2>Overall Readiness</h2>
+        <div class="kpis">
+          <div class="kpi"><div class="label">Readiness Score</div><div class="value" id="scoreVal">68 / 100</div></div>
+          <div class="kpi"><div class="label">SPRS</div><div class="value" id="sprsVal">-40</div></div>
+          <div class="kpi"><div class="label">Band</div><div class="value" id="bandVal">Elevated Risk</div></div>
+        </div>
+        <div style="margin-top:10px">
+          <div class="progress" aria-label="Readiness">
+            <span id="scoreBar" style="width:68%"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXEC SUMMARY -->
+    <div class="section card">
+      <h2>Executive Summary</h2>
+      <p class="callout">
+        Prioritize access control, incident response, and configuration management to lift your SPRS score and align with Level 2 expectations.
+        Establish an up-to-date <strong>SSP</strong> (System Security Plan) and <strong>POA&amp;M</strong> (Plan of Actions &amp; Milestones) to track remediation to completion.
+      </p>
+    </div>
+
+    <!-- TOP GAPS -->
+    <div class="section card">
+      <h2>Top Gaps</h2>
+      <table class="table">
+        <thead>
+          <tr><th>Family</th><th>Practice</th><th>Gap</th><th>Severity</th><th>Action</th></tr>
+        </thead>
+        <tbody id="gapsTable">
+          <tr>
+            <td>AC — Access Control</td>
+            <td>AC.L2-3.1.1 (Limit info system access)</td>
+            <td>No role-based access baseline; lingering shared accounts.</td>
+            <td class="sev-high">High</td>
+            <td>Implement RBAC; enforce unique IDs; retire shared/service accounts.</td>
+          </tr>
+          <tr>
+            <td>IA — Identification & Authentication</td>
+            <td>IA.L2-3.5.3 (MFA for network access)</td>
+            <td>MFA not enforced for VPN or administrative access.</td>
+            <td class="sev-high">High</td>
+            <td>Enable MFA across remote, admin, and cloud console access.</td>
+          </tr>
+          <tr>
+            <td>CM — Configuration Management</td>
+            <td>CM.L2-3.4.1 (Baseline configuration)</td>
+            <td>Missing hardened baselines; ad-hoc local admin rights.</td>
+            <td class="sev-med">Medium</td>
+            <td>Adopt CIS baselines; remove local admin; central config mgmt.</td>
+          </tr>
+          <tr>
+            <td>AU — Audit & Accountability</td>
+            <td>AU.L2-3.3.1 (Create/protect audit records)</td>
+            <td>Short log retention; limited alerting on CUI access events.</td>
+            <td class="sev-med">Medium</td>
+            <td>12–18 mo retention; enable anomaly alerts; weekly review cadence.</td>
+          </tr>
+          <tr>
+            <td>IR — Incident Response</td>
+            <td>IR.L2-3.6.1 (IR policy & testing)</td>
+            <td>No annual tabletop; contact tree out of date.</td>
+            <td class="sev-low">Low</td>
+            <td>Run tabletop; update runbook & contacts; evidence the exercise.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 30–90 DAY PLAN + EVIDENCE -->
+    <div class="section cols">
+      <div class="card">
+        <h2>30–90 Day Plan</h2>
+        <ul class="tight">
+          <li><strong>Weeks 1–2:</strong> Enforce MFA; eliminate shared accounts; publish RBAC matrix.</li>
+          <li><strong>Weeks 3–4:</strong> Establish CIS-based secure baselines; remove local admin; MDM/Intune rollout.</li>
+          <li><strong>Weeks 5–6:</strong> Centralize logs; tune alerts for CUI events; weekly review workflow.</li>
+          <li><strong>Weeks 7–8:</strong> Draft/refresh SSP + POA&amp;M; map each gap to an owner and due date.</li>
+          <li><strong>Weeks 9–12:</strong> IR tabletop; supplier risk review; collect evidence and update SPRS.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Evidence Checklist</h2>
+        <ul class="tight">
+          <li>Current <strong>SSP</strong> (scope, boundaries, inheritance)</li>
+          <li><strong>POA&amp;M</strong> with owners, milestones, residual risk</li>
+          <li>MFA policy + enforcement screenshots</li>
+          <li>Baseline configuration docs (CIS) + MDM profiles</li>
+          <li>SIEM/Log settings, retention policy, alert samples</li>
+          <li>IR Plan, tabletop agenda, attendance & outcomes</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- DETAILED FINDINGS -->
+    <div class="section card">
+      <h2>Detailed Findings (Sample)</h2>
+      <table class="table">
+        <thead><tr><th>Family</th><th>Practice (800-171)</th><th>Status</th><th>Notes / Evidence Needed</th></tr></thead>
+        <tbody id="detailRows">
+          <tr><td>AC</td><td>3.1.2 — Limit system access to types/transactions</td><td>Partial</td><td>Role catalog incomplete; map CUI roles → least privilege.</td></tr>
+          <tr><td>AC</td><td>3.1.7 — Prevent non-privileged users from exec privileged functions</td><td>Gap</td><td>Local admin rights common; remove via MDM policy.</td></tr>
+          <tr><td>IA</td><td>3.5.7 — Enforce password complexity/prohibit reuse</td><td>Partial</td><td>Align to NIST 800-63B; breach-password blocklist.</td></tr>
+          <tr><td>CM</td><td>3.4.6 — Employ least functionality</td><td>Partial</td><td>Disable legacy protocols; remove unused services/features.</td></tr>
+          <tr><td>AU</td><td>3.3.5 — Correlate audit review/analysis</td><td>Gap</td><td>Dashboards lack CUI data path views; add correlation rules.</td></tr>
+          <tr><td>IR</td><td>3.6.3 — Test IR capability</td><td>Gap</td><td>No annual test; schedule tabletop and capture after-action.</td></tr>
+          <tr><td>PE</td><td>3.10.3 — Escort visitors/monitor activity</td><td>Partial</td><td>Visitor logs manual; digitize and centralize retention.</td></tr>
+          <tr><td>RA</td><td>3.11.2 — Scan for vulnerabilities/remediate</td><td>Partial</td><td>Monthly scans only; adopt weekly for externals, monthly internals.</td></tr>
+          <tr><td>RM</td><td>3.12.4 — Develop/implement action plans</td><td>Gap</td><td>POA&amp;M not tied to owners or dates; create governance cadence.</td></tr>
+          <tr><td>CA</td><td>3.12.1 — Periodically assess controls</td><td>Partial</td><td>Quarterly spot checks recommended; evidence storage needed.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">© <span id="y"></span> XyberIQ — CMMC 2.0 Readiness</div>
+  </div>
+
+<script>
+/* === Theme toggle (inlined) ============================================== */
+(function(){
+  const root = document.documentElement;
+  const saved = localStorage.getItem('xyberiq-theme');
+  if (saved) root.setAttribute('data-theme', saved);
+  window.xyberTheme = {
+    toggle(){
+      const current = root.getAttribute('data-theme') || (matchMedia('(prefers-color-scheme: light)').matches ? 'light':'dark');
+      const next = current === 'light' ? 'dark' : 'light';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('xyberiq-theme', next);
+    }
+  };
+})();
+
+/* === Lightweight param wiring ============================================ */
+/* Accepts:
+   ?org=Acme+Co        -> sets org name
+   ?level=1|2          -> target level label
+   ?score=0..100       -> readiness score (bar + band)
+   ?sprs=-203..110     -> displayed SPRS score
+*/
+(function(){
+  const now = new Date();
+  document.getElementById('assessDate').textContent = now.toLocaleDateString();
+  document.getElementById('y').textContent = now.getFullYear();
+
+  const params = new URLSearchParams(location.search);
+
+  const org = params.get('org');
+  if (org) document.getElementById('orgName').textContent = decodeURIComponent(org.replace(/\+/g,' '));
+
+  const level = params.get('level');
+  const lvlLabel = level === '1' ? 'Level 1 (Foundational — FAR 52.204-21)' : 'Level 2 (NIST 800-171)';
+  document.getElementById('targetLevel').textContent = lvlLabel;
+
+  const score = Math.max(0, Math.min(100, Number(params.get('score')||68)));
+  const sprs = String(params.get('sprs') ?? -40);
+  document.getElementById('sprsVal').textContent = sprs;
+  document.getElementById('scoreVal').textContent = `${score} / 100`;
+  document.getElementById('scoreBar').style.width = score + '%';
+
+  const band = score >= 85 ? 'Ready' : score >= 70 ? 'Moderate Risk' : score >= 50 ? 'Elevated Risk' : 'High Risk';
+  document.getElementById('bandVal').textContent = band;
+})();
+</script>
+</body>
+</html>
