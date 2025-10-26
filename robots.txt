@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /assessment/
+Disallow: /reports/
+Allow: /
+Sitemap: https://cmmc.xyberiq.io/sitemap.xml
